@@ -61,14 +61,17 @@ function outer() {
 outer();
 
 // -----------Closure------------------
-function createFn() {
+//Closure is created when a function is return from another function. In the example below the outerFn() returns the innerFn as well as its scope, in our examples the function scope has just one variable ( let counter = 0), so we have the function InnerFn bundled together with the variable counter which is together termed as a CLOSURE. In such situations function will remember the value of the counter variable. Keep in mind that the innerFn will have an access to the ouside scope variable 'counter', when when th outerFn has completed its execution.
+function outerFn() {
   let counter = 0;
-  function decreaseCounter() {
+  function innerFn() {
     counter++;
     console.log(counter);
   }
-  return decreaseCounter;
+  return innerFn;
 }
-const fn = createFn();
+const fn = outerFn();
+fn();
+fn();
 fn();
 fn();
