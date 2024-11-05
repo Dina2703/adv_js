@@ -75,3 +75,41 @@ fn();
 fn();
 fn();
 fn();
+
+//------------------Currying--------------------
+//Curring a process in functional programming in which we transform a function with multiple arguments into a sequence of nesting functions that takes one argument at a time.
+//function(a, b, c) is transform to function(a)(b)(c)
+//Currying can look like this:
+const buildSandwich = (ingredient1) => {
+  return (ingredient2) => {
+    return (ingredient3) => {
+      return `${ingredient1}, ${ingredient2}, ${ingredient3}`;
+    };
+  };
+};
+
+const mySandwich = buildSandwich("egg")("lettuce")("bacon");
+console.log(mySandwich);
+
+//let's refactor
+const buildSammy = (ingred1) => (ingred2) => (ingred3) =>
+  `${ingred1}, ${ingred2}, ${ingred3}`;
+
+const mySammy = buildSammy("bread")("turkey")("cheese");
+console.log(mySammy);
+
+//Another example of curried function
+const multiply = (x, y) => x * y;
+const curriedMultiply = (x) => (y) => x * y;
+console.log(multiply(3, 4));
+console.log(curriedMultiply(3));
+
+//Partially applied functions are a common use of curring
+const timesTen = curriedMultiply(10); //10 is value for the first param
+console.log(timesTen(8)); //now 8 is value for the second param
+
+//another example
+const updateElText = (id) => (content) =>
+  (document.getElementById(`#${id}`).textContent = content);
+const updateHeaderText = updateElText(header);
+updateHeaderText("Hi, Dina");
