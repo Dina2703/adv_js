@@ -109,7 +109,34 @@ const timesTen = curriedMultiply(10); //10 is value for the first param
 console.log(timesTen(8)); //now 8 is value for the second param
 
 //another example
-const updateElText = (id) => (content) =>
-  (document.getElementById(`#${id}`).textContent = content);
-const updateHeaderText = updateElText(header);
-updateHeaderText("Hi, Dina");
+// const updateElText = (id) => (content) =>
+//   (document.getElementById(`#${id}`).textContent = content);
+// const updateHeaderText = updateElText(header);
+// updateHeaderText("Hi, Dina");
+
+//another use of curring is a function composition. allows call small functions in a specific order.
+//Check below function in the 'inspect' tab
+
+const addCustomer =
+  (fn) =>
+  (...args) => {
+    console.log("saving customer info...");
+    return fn(...args);
+  };
+
+const processOrder =
+  (fn) =>
+  (...args) => {
+    console.log(`processing order #${args[0]} `);
+    return fn(...args);
+  };
+
+let completeOrder = (...args) => {
+  console.log(`order #${[...args].toString()} completed.`);
+};
+
+completeOrder = processOrder(completeOrder);
+// console.log(completeOrder);
+completeOrder = addCustomer(completeOrder);
+console.log(completeOrder);
+completeOrder(1000);
